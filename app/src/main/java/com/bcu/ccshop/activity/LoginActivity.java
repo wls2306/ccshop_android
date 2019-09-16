@@ -3,12 +3,14 @@ package com.bcu.ccshop.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +22,10 @@ import cn.hutool.http.HttpRequest;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String LOGINRESULT = "";
+    private TextView registerButton;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        registerButton=(TextView)findViewById(R.id.textView3);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
+
+
+
 
 
     Handler handler=new Handler(){

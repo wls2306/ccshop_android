@@ -1,8 +1,10 @@
-package com.bcu.ccshop;
+package com.bcu.ccshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.bcu.ccshop.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
