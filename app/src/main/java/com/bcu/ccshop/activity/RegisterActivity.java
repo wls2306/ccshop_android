@@ -110,32 +110,43 @@ public class RegisterActivity extends AppCompatActivity {
             bundle=msg.getData();
             Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
             String result=bundle.getString("result");
-            JSONObject json=new JSONObject(result);
 
-            String rs=json.getStr("result");
+            log.info(result);
 
-            final AlertDialog.Builder alert=new AlertDialog.Builder(RegisterActivity.this);
-            alert.setTitle("提示");
-            alert.setNegativeButton("好的",null);
+            if (StrUtil.isNotEmpty(result)) {
+                JSONObject json=new JSONObject(result);
 
-            log.info("注册信息返回：{}, RESULT={}",result,json.get(result));
+                String rs=json.getStr("result");
 
-            if (rs.equals("true")) {
-                //TODO: 注册成功后的处理
-                Looper.prepare();
-                Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_LONG);
-                startActivity(intent);
-                Looper.loop();
+                final AlertDialog.Builder alert=new AlertDialog.Builder(RegisterActivity.this);
+                alert.setTitle("提示");
+                alert.setNegativeButton("好的",null);
+
+                log.info("注册信息返回：{}, RESULT={}",result,json.get(result));
+
+                if (rs.equals("true")) {
+                    //TODO: 注册成功后的处理
+                    Looper.prepare();
+                    Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_LONG);
+                    startActivity(intent);
+                    Looper.loop();
 
 
+                }else
+                {
+                    Looper.prepare();
+                    alert.setMessage("注册失败，手机号已存在").show();
+                    Button submitButton=(Button)findViewById(R.id.button2) ;
+                    submitButton.setEnabled(true);
+                    Looper.loop();
+                }
             }else
             {
                 Looper.prepare();
-                alert.setMessage("注册失败，手机号已存在").show();
-                Button submitButton=(Button)findViewById(R.id.button2) ;
-                submitButton.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"注册失败，手机号已存在",Toast.LENGTH_LONG).show();
                 Looper.loop();
             }
+
         }
     };
 }
