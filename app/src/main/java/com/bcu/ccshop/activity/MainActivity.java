@@ -9,7 +9,7 @@ import com.bcu.ccshop.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String SERVER_URL="http://www.2306.tech/CCShop";
+    public static String SERVER_URL="https://www.2306.tech/CCShop";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
