@@ -1,16 +1,13 @@
 package com.bcu.ccshop.threadclass;
 
-import android.widget.ListView;
 
 import com.bcu.ccshop.dataTranformer.goods;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import cn.hutool.http.HttpRequest;
-import org.json.JSONArray;
+
 
 
 public class topgoods implements Runnable{
