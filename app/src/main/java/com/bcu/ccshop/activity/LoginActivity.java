@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 import com.bcu.ccshop.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
 
 import cn.hutool.http.HttpRequest;
 
@@ -28,10 +30,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+     //   ArrayList goods=new ArrayList(Goods);
 
         Button loginButton = (Button) findViewById(R.id.button);
 
@@ -39,6 +44,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
                 TextView username = (TextView) findViewById(R.id.username);
                 TextView password = (TextView) findViewById(R.id.password);
                 final HashMap paramMap = new HashMap<>();
@@ -52,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         System.out.println("*****DO LOGIN*****");
-                        String result2 = HttpRequest.post(MainActivity.SERVER_URL+"/user/android/login")
+                        String result2= HttpRequest.post(MainActivity.SERVER_URL+"/user/android/login")
                                 /*.header(Header.USER_AGENT, "Hutool http")//头信息，多个头信息多次调用此方法即可*/
                                 .form(paramMap)//表单内容
                                 .timeout(20000)//超时，毫秒
