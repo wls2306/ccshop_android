@@ -1,4 +1,4 @@
-package com.bcu.ccshop.entity;
+package com.bcu.ccshop.model;
 
 import android.graphics.Bitmap;
 

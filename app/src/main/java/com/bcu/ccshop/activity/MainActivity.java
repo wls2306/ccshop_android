@@ -17,7 +17,7 @@ import com.bcu.ccshop.R;
 import com.bcu.ccshop.customWidget.SuperGridView;
 import com.bcu.ccshop.dataTranformer.goods;
 import com.bcu.ccshop.dataTranformer.icAdapter;
-import com.bcu.ccshop.entity.goodsInco;
+import com.bcu.ccshop.model.goodsInco;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;

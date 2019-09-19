@@ -9,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bcu.ccshop.R;
-import com.bcu.ccshop.entity.goodsInco;
+import com.bcu.ccshop.model.goodsInco;
 
 
 import java.io.IOException;
