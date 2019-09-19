@@ -1,6 +1,10 @@
 package com.bcu.ccshop.dataTranformer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +17,27 @@ import com.bcu.ccshop.R;
 import com.bcu.ccshop.entity.goodsInco;
 
 
-
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.LogRecord;
+
+
+import static com.bcu.ccshop.activity.MainActivity.SERVER_URL;
 
 public class icAdapter extends BaseAdapter {
-
+    private static final int COMPLETED = 0;
     private List<goodsInco> beanList;
     private LayoutInflater layoutInflater;
+    private ViewHolder holder = null;
+
     public  icAdapter(List<goodsInco> beanList, Context context){
         this.beanList=beanList;
         this.layoutInflater=LayoutInflater.from(context);
     }
+
 
     @Override
     public int getCount() {
@@ -42,7 +56,6 @@ public class icAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder = null;
         if(view == null){
             view=layoutInflater.inflate(R.layout.ic_layout,null);
             holder=new ViewHolder();
@@ -53,6 +66,7 @@ public class icAdapter extends BaseAdapter {
         }else {
             holder=(ViewHolder) view.getTag();
         }
+        holder.imageView.setImageBitmap(beanList.get(i).getItem_img());
         holder.textViewN.setText(beanList.get(i).getName());
         holder.textViewP.setText(""+beanList.get(i).getPrice());
         //holder.imageView.setImage
