@@ -9,9 +9,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import com.bcu.ccshop.R;
 import com.bcu.ccshop.customWidget.SuperGridView;
@@ -56,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        tabHost.setup();
+        LayoutInflater.from(this).inflate(R.layout.home_page, tabHost.getTabContentView());
+        LayoutInflater.from(this).inflate(R.layout.info_page, tabHost.getTabContentView());
+        LayoutInflater.from(this).inflate(R.layout.mine_page, tabHost.getTabContentView());
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("", getDrawable(R.drawable.home_m_s)).setContent(R.id.homepage));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.type_m_s)).setContent(R.id.infoPage));
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.my_m_s)).setContent(R.id.minePage));
         Intent intent=new Intent(MainActivity.this,LoginActivity.class);
         startActivity(intent);
         goodsView=findViewById(R.id.goodsGridView);
@@ -64,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         convenientBanner=(ConvenientBanner) findViewById(R.id.convenientBanner);
         bannerImgs.add(R.drawable.test_photo1);
         bannerImgs.add(R.drawable.test_photo2);
+        tabHost.setFocusable(true);
+        tabHost.setFocusableInTouchMode(true);
+        tabHost.requestFocus();
         refresh();
     }
 
@@ -117,9 +132,14 @@ public class MainActivity extends AppCompatActivity {
                               e.printStackTrace();
                           }
                               Gson gson =new Gson();
-                              List<goods> topgoodsh=gson.fromJson(result,new TypeToken<List<goods>>(){}.getType());
-                              topGoodList.addAll(topgoodsh);
-                              for(int a=0;a<topGoodList.size();a++){
+                              List<goods> taprooms=gson.fromJson(result,new TypeToken<List<goods>>(){}.getType());
+                              try {
+                                  boolean b = topGoodList.addAll(taprooms);
+                              } catch (Exception e) {
+                                  e.printStackTrace();
+                              }
+
+                          for(int a=0;a<topGoodList.size();a++){
                                   String img_url;
                                   Bitmap bitmap=null;
                                   img_url=topGoodList.get(a).getGoodsImg();
