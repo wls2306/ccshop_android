@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.GoodsActivity">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="com.bcu.ccshop.model.Goods"/>
+        <variable name="goods" type="com.bcu.ccshop.model.Goods"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.GoodsActivity">
 
     <Button
         android:id="@+id/button3"
@@ -46,7 +52,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商品名称"
+                android:text="@{goods.goodsName}"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline14"
@@ -68,7 +74,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="200人已购"
+                android:text="@{goods.goodsSoldAmount}"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline11"
                 app:layout_constraintEnd_toStartOf="@+id/guideline15"
@@ -79,7 +85,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥200"
+                android:text="@{goods.goodsPrice}"
                 android:textColor="#E91E63"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toTopOf="@+id/guideline11"
@@ -91,7 +97,7 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@{goods.goodsDescription}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline17"
                 app:layout_constraintStart_toStartOf="@+id/guideline14"
                 app:layout_constraintTop_toTopOf="@+id/guideline17" />
@@ -186,3 +192,4 @@
         app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

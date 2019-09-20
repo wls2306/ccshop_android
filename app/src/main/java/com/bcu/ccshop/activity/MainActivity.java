@@ -92,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Toast.makeText(MainActivity.this,"ID:"+mData.get(i).getiId(),Toast.LENGTH_SHORT).show();
-            Intent intentItem=new Intent();
+            Intent intentItem=new Intent(MainActivity.this,GoodsActivity.class);
             intentItem.putExtra("ClickItemID",mData.get(i).getiId());
+            startActivity(intentItem);
 
         }
     }

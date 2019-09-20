@@ -22,7 +22,8 @@ android {
         enabled = true
     }
 }
-
+apply plugin: 'com.android.application'
+apply plugin: 'com.android.databinding'
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     implementation 'cn.hutool:hutool-all:4.6.3'

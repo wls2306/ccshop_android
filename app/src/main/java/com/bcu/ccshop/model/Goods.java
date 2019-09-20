@@ -1,8 +1,10 @@
 package com.bcu.ccshop.model;
 
+import androidx.databinding.BaseObservable;
+
 import java.util.Date;
 
-public class Goods {
+public class Goods extends BaseObservable {
     /**
      * 商品编号
      */
