@@ -11,10 +11,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.Toast;
 
 import com.bcu.ccshop.R;
 import com.bcu.ccshop.customWidget.SuperGridView;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //卡项 Tabhost
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
         LayoutInflater.from(this).inflate(R.layout.home_page, tabHost.getTabContentView());
@@ -68,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("", getDrawable(R.drawable.home_m_s)).setContent(R.id.homepage));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.type_m_s)).setContent(R.id.infoPage));
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.my_m_s)).setContent(R.id.minePage));
-        Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-        startActivity(intent);
+
+
         goodsView=findViewById(R.id.goodsGridView);
         System.out.println(topGoodList.size());
         mData = new ArrayList<goodsInco>();
@@ -80,6 +84,18 @@ public class MainActivity extends AppCompatActivity {
         tabHost.setFocusableInTouchMode(true);
         tabHost.requestFocus();
         refresh();
+        goodsView.setOnItemClickListener(new OnClickItem());
+    }
+
+    private class OnClickItem implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            Toast.makeText(MainActivity.this,"ID:"+mData.get(i).getiId(),Toast.LENGTH_SHORT).show();
+            Intent intentItem=new Intent();
+            intentItem.putExtra("ClickItemID",mData.get(i).getiId());
+
+        }
     }
 
 
@@ -104,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+
+
     public static Bitmap getBitmap(String path) throws IOException {
         URL url = new URL(path);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
