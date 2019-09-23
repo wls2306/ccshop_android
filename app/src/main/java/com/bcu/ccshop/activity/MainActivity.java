@@ -1,6 +1,7 @@
 package com.bcu.ccshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcu.ccshop.R;
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int COMPLETEDm = 1;
     private ConvenientBanner convenientBanner;
     private List<Integer> bannerImgs=new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private String userID;
+    private TextView unM,lvM;
 
 
 
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //卡项 Tabhost
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
@@ -80,12 +87,36 @@ public class MainActivity extends AppCompatActivity {
         convenientBanner=(ConvenientBanner) findViewById(R.id.convenientBanner);
         bannerImgs.add(R.drawable.test_photo1);
         bannerImgs.add(R.drawable.test_photo2);
+        unM=findViewById(R.id.userLevelMian);
+
+
+
         tabHost.setFocusable(true);
         tabHost.setFocusableInTouchMode(true);
         tabHost.requestFocus();
         refresh();
         goodsView.setOnItemClickListener(new OnClickItem());
+        swipeRefreshLayout=findViewById(R.id.homepage);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(MainActivity.this,"刷新",Toast.LENGTH_SHORT).show();
+                refresh();
+
+            }
+        });
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        Intent intentGL = data;
+        userID=intentGL.getStringExtra("username");
+        unM.setText(userID);
+
+    }
+
+
 
     private class OnClickItem implements AdapterView.OnItemClickListener{
 
@@ -118,12 +149,10 @@ public class MainActivity extends AppCompatActivity {
             if(msg.what==COMPLETEDm){
                 mAdapter = new icAdapter(mData,context);
                 goodsView.setAdapter(mAdapter);
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     };
-
-
-
     public static Bitmap getBitmap(String path) throws IOException {
         URL url = new URL(path);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -140,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
     public void refresh(){
         bannerShow(convenientBanner);
         context=MainActivity.this;
+        mData.clear();
+        topGoodList.clear();
         new Thread(
                 new Runnable() {
                       @Override
@@ -192,6 +223,30 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(data);
         }
     }
+
+    public void goLogAct(View view){
+        Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+        startActivityForResult(intent, 38);
+        //startActivity(intent);
+    }
+
+    public void getPayList(View view){
+
+    }
+    public void getSendList(View view){
+
+    }
+    public void getCheckList(View view){
+
+    }
+    public void getComList(View view){
+
+    }
+
+
+
+
+
 
 
 }

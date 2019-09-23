@@ -43,7 +43,7 @@
             android:id="@+id/userNameMine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="lv. 0" />
+            android:text="扶贫积分：0" />
 
         <ImageView
             android:id="@+id/imageView7"
@@ -231,6 +231,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:background="#00FFFFFF"
+            android:onClick="goLogAct"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/login" />
 

@@ -1,10 +1,7 @@
 package com.bcu.ccshop.dataTranformer;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.os.Message;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +13,9 @@ import com.bcu.ccshop.R;
 import com.bcu.ccshop.model.goodsInco;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.List;
-import java.util.logging.LogRecord;
 
-
-import static com.bcu.ccshop.activity.MainActivity.SERVER_URL;
 
 public class icAdapter extends BaseAdapter {
     private static final int COMPLETED = 0;
