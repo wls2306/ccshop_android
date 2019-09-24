@@ -15,13 +15,15 @@
 
 
     <ScrollView
+        android:id="@+id/scrollViewHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/homeV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenientBanner"
@@ -41,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:onClick="goGoodsList"
                     app:srcCompat="@drawable/ic_mian_agricultural" />
 
                 <ImageView
@@ -48,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:onClick="goHomesList"
                     app:srcCompat="@drawable/ic_mian_homestay" />
 
                 <ImageView

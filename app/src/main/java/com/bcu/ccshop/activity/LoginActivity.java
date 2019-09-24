@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this,MainActivity.class);
                 intent.putExtra("username",usernameS);
+                intent.putExtra("logSe",true);
                 setResult(250, intent);
                 backb(viewQ);
             }else {

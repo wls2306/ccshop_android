@@ -9,15 +9,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +30,10 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private String url="https://www.2306.tech/CCShop/goods/select/index/1001";
     private HashMap paramMap = new HashMap<>();
     private String result;
-    private Object lock=new Object();
     private List<goods> topGoodList=new ArrayList<>();
     private SuperGridView goodsView;
     private List<goodsInco> mData ;
@@ -61,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private String userID;
     private TextView unM,lvM;
+    public static boolean isLog=false;
+    private ScrollView scrollView;
 
 
 
@@ -89,13 +87,12 @@ public class MainActivity extends AppCompatActivity {
         bannerImgs.add(R.drawable.test_photo2);
         unM=findViewById(R.id.userLevelMian);
 
-
-
         tabHost.setFocusable(true);
         tabHost.setFocusableInTouchMode(true);
         tabHost.requestFocus();
         refresh();
         goodsView.setOnItemClickListener(new OnClickItem());
+        scrollView=findViewById(R.id.scrollViewHome);
         swipeRefreshLayout=findViewById(R.id.homepage);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -107,12 +104,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        scrollView.fullScroll(ScrollView.FOCUS_UP);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Intent intentGL = data;
         userID=intentGL.getStringExtra("username");
         unM.setText(userID);
+        if (intentGL.getBooleanExtra("logSe",false)){
+            isLog=true;
+        }
 
     }
 
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==COMPLETEDm){
-                mAdapter = new icAdapter(mData,context);
+                mAdapter = new icAdapter(mData,context,R.layout.ic_layout);
                 goodsView.setAdapter(mAdapter);
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -224,13 +229,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goGoodsList(View view){
+        Intent intent=new Intent(MainActivity.this,list_Page.class);
+        intent.putExtra("title","农产品");
+        startActivity(intent);
+    }
+    public void goHomesList(View view){
+        Intent intent=new Intent(MainActivity.this, list_Page.class);
+        intent.putExtra("title","民宿");
+        startActivity(intent);
+    }
+
+
     public void goLogAct(View view){
         Intent intent=new Intent(MainActivity.this,LoginActivity.class);
         startActivityForResult(intent, 38);
-        //startActivity(intent);
     }
 
     public void getPayList(View view){
+        if(isLog){
+            getUserOderList(SERVER_URL+"/order/select/m/",userID,0);
+        }
 
     }
     public void getSendList(View view){
@@ -239,9 +258,16 @@ public class MainActivity extends AppCompatActivity {
     public void getCheckList(View view){
 
     }
-    public void getComList(View view){
+    public void getComList(View view) {
 
     }
+
+    private String getUserOderList(String url,String uID,int status){
+        String resultList="";
+        return resultList;
+    }
+
+
 
 
 

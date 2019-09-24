@@ -2,6 +2,7 @@ package com.bcu.ccshop.dataTranformer;
 
 import android.content.Context;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,12 @@ public class icAdapter extends BaseAdapter {
     private List<goodsInco> beanList;
     private LayoutInflater layoutInflater;
     private ViewHolder holder = null;
+    private int layout;
 
-    public  icAdapter(List<goodsInco> beanList, Context context){
+    public  icAdapter(List<goodsInco> beanList, Context context, int layout){
         this.beanList=beanList;
         this.layoutInflater=LayoutInflater.from(context);
+        this.layout=layout;
     }
 
 
@@ -47,7 +50,7 @@ public class icAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null){
-            view=layoutInflater.inflate(R.layout.ic_layout,null);
+            view=layoutInflater.inflate(layout,null);
             holder=new ViewHolder();
             holder.imageView=(ImageView) view.findViewById(R.id.img_icon);
             holder.textViewN=(TextView) view.findViewById(R.id.txt_icon_n);

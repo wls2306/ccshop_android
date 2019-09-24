@@ -15,4 +15,34 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
+    <!-- 设置Toolbar 子标题subtitle标题字体的大小 -->
+
+    <style name="Toolbar.SubTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">15sp</item><!--子标题字体大小-->
+        <item name="android:textColor">#ffffff</item><!--子标题字体颜色-->
+    </style>
+
+    <!-- 设置Toolbar标题字体的颜色大小 -->
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item><!--toolbar标题字体大小-->
+        <item name="android:textColor">#ffffff</item><!--toolbar标题字体颜色-->
+    </style>
+    <style name="Con_style" parent="@android:style/Theme.DeviceDefault.Dialog">
+        <!-- 边框 -->
+        <item name="android:windowFrame">@android:color/transparent</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.1</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+
 </resources>

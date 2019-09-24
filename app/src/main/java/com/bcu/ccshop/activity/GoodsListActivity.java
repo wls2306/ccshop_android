@@ -128,7 +128,7 @@ public class GoodsListActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-           adapter=new icAdapter(goodsIncoList,context);
+           adapter=new icAdapter(goodsIncoList,context,R.layout.itemliset_layout);
            listView.setAdapter(adapter);
         }
     };
