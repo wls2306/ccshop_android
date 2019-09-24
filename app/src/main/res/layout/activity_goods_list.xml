@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.GoodsListActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ListView
+    <data>
+        <import type="com.bcu.ccshop.activity.GoodsListActivity"/>
+        <variable
+            name="goods"
+            type="com.bcu.ccshop.activity.GoodsListActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="197dp"
-        tools:layout_editor_absoluteY="261dp" />
+        tools:context=".activity.GoodsListActivity">
 
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="234dp"
+            tools:layout_editor_absoluteY="234dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
