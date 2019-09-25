@@ -72,7 +72,10 @@ public class list_Page extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             Toast.makeText(list_Page.this,"ID:"+mData.get(i).getiId(),Toast.LENGTH_SHORT).show();
-            Intent intentItem=new Intent(list_Page.this,GoodsActivity.class);
+            Intent intentItem=new Intent();
+            if(t==1){
+               intentItem.setClass (list_Page.this,GoodsActivity.class);
+            }else intentItem.setClass(list_Page.this,HomeInfo.class);
             intentItem.putExtra("ClickItemID",mData.get(i).getiId());
             startActivity(intentItem);
 

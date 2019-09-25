@@ -77,15 +77,9 @@ public class GoodsActivity extends AppCompatActivity {
                         s=MainActivity.SERVER_URL+"/"+s;
                         imgList.add(s);
                     }
-
-
                     System.out.println("********* Img List :"+JSONUtil.toJsonStr(imgList));
-
-
-
                     Message m = new Message();
                     handler.handleMessage(m);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -121,8 +115,6 @@ public class GoodsActivity extends AppCompatActivity {
                         .setPageIndicator(new int[]{R.drawable.icon_no_select, R.drawable.icon_on_select})
                         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                         .startTurning(2000);
-
-
             }
         });
     }
