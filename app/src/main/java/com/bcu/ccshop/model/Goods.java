@@ -165,6 +165,4 @@ public class Goods extends BaseObservable {
     }
 
 
-
-
 }
