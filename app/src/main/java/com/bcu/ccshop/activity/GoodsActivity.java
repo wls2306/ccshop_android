@@ -1,5 +1,6 @@
 package com.bcu.ccshop.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,13 +26,16 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSON;
@@ -45,7 +51,7 @@ public class GoodsActivity extends AppCompatActivity {
     private ConvenientBanner convenientBanner;
     private String[] images;
     private List<String> imgList=new ArrayList<>();
-
+    private Float price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,9 @@ public class GoodsActivity extends AppCompatActivity {
                     goods.setGoodsPrice(jsonObject.getStr("goodsPrice"));
                     goods.setGoodsDescription(jsonObject.getStr("goodsDescription"));
                     goods.setGoodsSoldAmount(jsonObject.getStr("goodsSoldAmount")+" 人已买");
+                    price=jsonObject.getFloat("goodsPrice");
                     binding.setGoods(goods);
+                    binding.totalPrice.setText(jsonObject.getStr("goodsPrice"));
                     images = jsonObject.getStr("goodsImg").split(";");
                     for (String s : images) {
                         s=MainActivity.SERVER_URL+"/"+s;
@@ -87,6 +95,52 @@ public class GoodsActivity extends AppCompatActivity {
                 }
             }
         }).start();
+
+
+        /**
+         * 计算总价
+         */
+        binding.count.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(StrUtil.isNotBlank(charSequence.toString())) {
+                    if (Integer.valueOf(charSequence.toString()) >0&& Integer.valueOf(charSequence.toString())<=20) {
+                        DecimalFormat decimalFormat=new DecimalFormat(".00");
+
+                        binding.totalPrice.setText("￥"+decimalFormat.format(Float.valueOf(charSequence.toString())*price) );
+                    }
+                    else {
+                        binding.count.setText("1");
+                        Toast.makeText(getApplicationContext(),"购买数量需要大于0小于等于20",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        /**
+         * 确认&提交订单
+         */
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -120,6 +174,10 @@ public class GoodsActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 }
 
 

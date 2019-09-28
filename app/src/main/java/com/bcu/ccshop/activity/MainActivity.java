@@ -43,6 +43,7 @@ import cn.hutool.http.HttpRequest;
 public class MainActivity extends AppCompatActivity {
 
     public static String SERVER_URL="https://www.2306.tech/CCShop";
+    public static String userOpenId;
     private String url="https://www.2306.tech/CCShop/goods/select/index/1001";
     private HashMap paramMap = new HashMap<>();
     private String result;
