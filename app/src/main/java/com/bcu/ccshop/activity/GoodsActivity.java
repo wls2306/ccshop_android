@@ -72,6 +72,7 @@ public class GoodsActivity extends AppCompatActivity {
                     goods.setGoodsName(jsonObject.getStr("goodsName").length() < 15 ? jsonObject.getStr("goodsName") : jsonObject.getStr("goodsName").substring(0, 15) + "...");
                     goods.setGoodsPrice(jsonObject.getStr("goodsPrice"));
                     goods.setGoodsDescription(jsonObject.getStr("goodsDescription"));
+                    goods.setGoodsSoldAmount(jsonObject.getStr("goodsSoldAmount")+" 人已买");
                     binding.setGoods(goods);
                     images = jsonObject.getStr("goodsImg").split(";");
                     for (String s : images) {
