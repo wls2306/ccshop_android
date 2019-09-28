@@ -12,7 +12,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.bcu.ccshop.R;
 import com.bcu.ccshop.dataTranformer.Homestay;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -44,6 +48,7 @@ public class HomeInfo extends AppCompatActivity {
     private int COMPLETED3 = 3;
     private String hPhone;
     private MapView mMapView;
+    private AMap aMap;
 
 
     @Override
@@ -64,10 +69,10 @@ public class HomeInfo extends AppCompatActivity {
         hADD=findViewById(R.id.textView45);
         mMapView=findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-        AMap aMap = mMapView.getMap();
-        aMap.setTrafficEnabled(true);// 显示实时交通状况
+        aMap = mMapView.getMap();
+        aMap.setTrafficEnabled(false);// 不显示实时交通状况
         //地图模式可选类型：MAP_TYPE_NORMAL,MAP_TYPE_SATELLITE,MAP_TYPE_NIGHT
-        aMap.setMapType(AMap.MAP_TYPE_SATELLITE);// 卫星地图模式
+        aMap.setMapType(AMap.MAP_TYPE_NORMAL);// 卫星地图模式
 
 
     }
@@ -103,6 +108,8 @@ public class HomeInfo extends AppCompatActivity {
             }
         }
         ).start();
+
+
 
 
     }
@@ -150,7 +157,12 @@ public class HomeInfo extends AppCompatActivity {
                 hADD.setText(homestay.gethAddress());
                 hPhone=homestay.gethPhone();
                 System.out.println("phone"+hPhone);
+                LatLng latLng = new LatLng(Double.valueOf(xy[1]),Double.valueOf(xy[0]));
+                aMap.moveCamera(CameraUpdateFactory.zoomTo(13));
+                final Marker marker = aMap.addMarker(new MarkerOptions().position(latLng).title(homestay.gethName()).snippet("DefaultMarker"));
+                aMap. moveCamera(CameraUpdateFactory.changeLatLng(latLng));
                 doRefresh();
+
             }
         }
     };
@@ -172,7 +184,7 @@ public class HomeInfo extends AppCompatActivity {
     }
 
     public void goMap(View view){
-        Uri uri= Uri.parse("geo:"+xy[0]+","+xy[1]);
+        Uri uri= Uri.parse("geo:"+xy[1]+","+xy[0]);
         Intent intent=new Intent(Intent.ACTION_VIEW,uri);
         startActivity(intent);
     }

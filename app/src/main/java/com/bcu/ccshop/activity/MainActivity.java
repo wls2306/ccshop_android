@@ -20,6 +20,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bcu.ccshop.OrderList;
 import com.bcu.ccshop.R;
 import com.bcu.ccshop.customWidget.SuperGridView;
 import com.bcu.ccshop.dataTranformer.goods;
@@ -248,7 +249,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void getPayList(View view){
         if(isLog){
-            getUserOderList(SERVER_URL+"/order/select/m/",userID,0);
+            String string;
+            string=getUserOderList(SERVER_URL+"/order/select/m/",userID,0);
+            Intent intent=new Intent(MainActivity.this, OrderList.class);
+            intent.putExtra("type",0);
+            intent.putExtra("resultList",string);
+            startActivity(intent);
         }
 
     }
@@ -264,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String getUserOderList(String url,String uID,int status){
         String resultList="";
+
         return resultList;
     }
 

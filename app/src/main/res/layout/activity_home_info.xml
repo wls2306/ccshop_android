@@ -14,23 +14,22 @@
     </com.bigkoo.convenientbanner.ConvenientBanner>
 
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/barTop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
 
         app:behavior_overlapTop="0dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".activity.HomeInfo">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="#FFFFFF"
@@ -58,14 +57,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/imageButton14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:onClick="goMap"
-                        android:src="@android:drawable/ic_menu_send" />
-
                     <TextView
                         android:id="@+id/textView45"
                         android:layout_width="wrap_content"
@@ -74,12 +65,36 @@
                         android:gravity="center_vertical"
                         android:text="TextView" />
 
+                    <ImageButton
+                        android:id="@+id/imageButton14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:onClick="goMap"
+                        android:src="@android:drawable/ic_menu_send" />
+
                 </LinearLayout>
 
                 <com.amap.api.maps.MapView
                     android:id="@+id/mapView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="250dp">
+
+                </com.amap.api.maps.MapView>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:text="入住须知"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="尊敬的各位贵宾:\n\t\t\t\t为了您和他人能享受到更加完美的服务，请爱惜宾馆内一切公用设施。请保持良好的修养和公德心，不要用床上用品或面巾浴巾窗帘等作抹布使用。需要抹布搽拭清洁的，找老板帮助解决。损坏物品或故意污染用品的会将按照物品原件赔偿。进客房时发现异常请立即通知老板，否则视为一切完好。\n\t\t\t\t一、入住须知\n\t\t\t\t1、客房结帐时间为中午12时，如需延住，请您提前通知老板。\n\t\t\t\t2、延期退房按如下标准收费:退房时间为第二天中午12: 00，若超过12: 00 则按第二天收费;午休房午休时间超过5个小时按照全天收费。\n\t\t\t\t3、退房后，请您勿忘将钥匙交还老板。 " />
 
             </LinearLayout>
 
@@ -249,6 +264,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </androidx.appcompat.widget.Toolbar>
@@ -260,50 +276,57 @@
         android:id="@+id/bottomAppBar"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" >
-        <LinearLayout
+        android:layout_height="48dp"
+        android:layout_gravity="bottom">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton12"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="#26A69A"
-                android:onClick="goPhone"
-                android:src="@android:drawable/ic_menu_call" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.01"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/textView43"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:text="***元/晚" />
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/imageButton13"
-                android:layout_width="wrap_content"
-                android:layout_height="51dp"
-                android:layout_weight="0.6"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="0"
                 android:background="#26A69A"
-                android:src="@android:drawable/stat_notify_more" />
+                android:src="@android:drawable/stat_notify_more"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageButton12"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="0"
+                android:background="#26A69A"
+                android:onClick="goPhone"
+                android:src="@android:drawable/ic_menu_call"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="***元/晚"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton13"
+                app:layout_constraintStart_toEndOf="@+id/imageButton12"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.bottomappbar.BottomAppBar>
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

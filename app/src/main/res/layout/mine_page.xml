@@ -138,8 +138,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
+            android:onClick="getPayList"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/paying"/>
+            app:srcCompat="@drawable/paying" />
 
         <ImageButton
             android:id="@+id/imageButton2"
