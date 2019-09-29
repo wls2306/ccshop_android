@@ -1,5 +1,6 @@
 package com.bcu.ccshop.dataTranformer;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,11 @@ public class icOAdapter extends BaseAdapter {
     private static final int COMPLETED = 0;
     private List<orderItemIcon> beanList;
 
-    public icOAdapter(List<orderItemIcon> beanList, LayoutInflater layoutInflater, ViewHolder holder, int layout, int type) {
+    public icOAdapter(List<orderItemIcon> beanList, Context context, int layout, int type) {
         this.beanList = beanList;
-        this.layoutInflater = layoutInflater;
-        this.holder = holder;
         this.layout = layout;
         this.type = type;
+        this.layoutInflater=LayoutInflater.from(context);
     }
 
     private LayoutInflater layoutInflater;

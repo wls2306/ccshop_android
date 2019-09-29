@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/Logistics" />
+                tools:srcCompat="@drawable/logistics" />
 
             <ImageButton
                 android:id="@+id/imageButton17"

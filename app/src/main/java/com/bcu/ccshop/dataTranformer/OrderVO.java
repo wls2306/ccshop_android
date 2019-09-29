@@ -15,10 +15,10 @@ public class OrderVO {
      */
 
     private String orderImage;
-    private float orderSinglePrice;
+    private String orderSinglePrice;
     private String orderAddress;
     private String orderId;
-    private float orderTotalFee;
+    private String orderTotalFee;
     private String createTime;
     private String orderFinishTime;
     private String orderBuyCount;
@@ -32,11 +32,11 @@ public class OrderVO {
         this.orderImage = orderImage;
     }
 
-    public float getOrderSinglePrice() {
+    public String getOrderSinglePrice() {
         return orderSinglePrice;
     }
 
-    public void setOrderSinglePrice(float orderSinglePrice) {
+    public void setOrderSinglePrice(String orderSinglePrice) {
         this.orderSinglePrice = orderSinglePrice;
     }
 
@@ -56,11 +56,11 @@ public class OrderVO {
         this.orderId = orderId;
     }
 
-    public float getOrderTotalFee() {
+    public String getOrderTotalFee() {
         return orderTotalFee;
     }
 
-    public void setOrderTotalFee(float orderTotalFee) {
+    public void setOrderTotalFee(String orderTotalFee) {
         this.orderTotalFee = orderTotalFee;
     }
 

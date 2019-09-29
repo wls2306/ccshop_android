@@ -251,10 +251,10 @@ public class MainActivity extends AppCompatActivity {
     public void getPayList(View view){
         if(isLog){
             String string;
-            string=getUserOderList(SERVER_URL+"/order/select/m/",userID,0);
+            string=getUserOderList(SERVER_URL+"/order/select/m/",userID);
             Intent intent=new Intent(MainActivity.this, OrderList.class);
             intent.putExtra("type",0);
-            intent.putExtra("resultList",string);
+            intent.putExtra("resultList","https://www.2306.tech/CCShop/order/select/m/"+userID);
             startActivity(intent);
         }
 
@@ -269,8 +269,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private String getUserOderList(String url,String uID,int status){
-        String resultList="";
+    private String getUserOderList(String url,String uID){
+        String resultList=url+"/"+uID;
 
         return resultList;
     }
