@@ -2,6 +2,7 @@ package com.bcu.ccshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,10 +13,12 @@ import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.TabHost;
 
+import com.bcu.ccshop.activity.MainActivity;
 import com.bcu.ccshop.dataTranformer.Order;
 import com.bcu.ccshop.dataTranformer.OrderVO;
 import com.bcu.ccshop.dataTranformer.goods;
 import com.bcu.ccshop.dataTranformer.icAdapter;
+import com.bcu.ccshop.dataTranformer.icOAdapter;
 import com.bcu.ccshop.model.goodsInco;
 import com.bcu.ccshop.model.orderItemIcon;
 import com.google.gson.Gson;
@@ -38,6 +41,8 @@ public class OrderList extends AppCompatActivity {
     private List<OrderVO> ckeckList;
     private List<OrderVO> finishList;
     private List<orderItemIcon> mData ;
+    private Context context;
+    private int type;
     private int COMPLETEDm=5;
     private BaseAdapter mAdapter = null;
 
@@ -56,7 +61,8 @@ public class OrderList extends AppCompatActivity {
         tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("待收货",null).setContent(R.id.order_tab));
         tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));
         Intent intent =getIntent();
-        switch (intent.getIntExtra("type",0)){
+        type=intent.getIntExtra("type",0);
+        switch (type){
             case 0:{
                 tabhost.setCurrentTab(0);
                 break;
@@ -83,7 +89,8 @@ public class OrderList extends AppCompatActivity {
 
     }
 
-    public void getList(String url,List<Order> list){
+    public void getList(String url,List<OrderVO> list){
+        context= OrderList.this;
         HashMap paramMap = new HashMap<>();
         new Thread(
                 new Runnable() {
@@ -97,7 +104,7 @@ public class OrderList extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         Gson gson =new Gson();
-                        List<Order> taprooms=gson.fromJson(result,new TypeToken<List<Order>>(){}.getType());
+                        List<OrderVO> taprooms=gson.fromJson(result,new TypeToken<List<Order>>(){}.getType());
                         try {
                             boolean b = list.addAll(taprooms);
                         } catch (Exception e) {
@@ -115,7 +122,7 @@ public class OrderList extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            mData.add(new goodsInco(list.get(a).getOrderId(),list.get(a).getN));
+                            mData.add(new orderItemIcon(list.get(a).getOrderId(),list.get(a).getOrderName(),bitmap,list.get(a).getOrderBuyCount(),""+list.get(a).getOrderSinglePrice(),""+list.get(a).getOrderTotalFee(),list.get(a).getCreateTime()));
                         }
                         Message message=new Message();
                         message.what=COMPLETEDm;
@@ -127,9 +134,8 @@ public class OrderList extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==COMPLETEDm){
-                mAdapter = new icAdapter(mData,context,R.layout.ic_layout);
+                mAdapter = new icOAdapter(mData,context,R.layout.order_item);
                 goodsView.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
             }
         }
     };

@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.antlr.v4.codegen.model.SrcOp;
+
 public class orderItemIcon {
     public String getoID() {
         return oID;
@@ -53,13 +55,14 @@ public class orderItemIcon {
         this.oGFee = oGFee;
     }
 
-    public orderItemIcon(String oID, String oNmae, Bitmap oImage, String oCount, String oFee, String oGFee) {
+    public orderItemIcon(String oID, String oNmae, Bitmap oImage, String oCount, String oFee, String oGFee,String oFDate) {
         this.oID = oID;
         this.oNmae = oNmae;
         this.oImage = oImage;
         this.oCount = oCount;
         this.oFee = oFee;
         this.oGFee = oGFee;
+        this.oFDate=oFDate;
     }
 
     private String oID;
@@ -68,6 +71,16 @@ public class orderItemIcon {
     private String oCount;
     private String oFee;
     private String oGFee;
+
+    public String getoFDate() {
+        return oFDate;
+    }
+
+    public void setoFDate(String oFDate) {
+        this.oFDate = oFDate;
+    }
+
+    private String oFDate;
 
 
 
