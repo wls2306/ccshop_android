@@ -61,6 +61,7 @@ public class icOAdapter extends BaseAdapter {
             holder.imageButton1=view.findViewById(R.id.imageButton15);
             holder.imageButton2=view.findViewById(R.id.imageButton16);
             holder.imageButton3=view.findViewById(R.id.imageButton17);
+            System.out.println("123");
             view.setTag(holder);
         }else {
             holder=(icOAdapter.ViewHolder) view.getTag();
