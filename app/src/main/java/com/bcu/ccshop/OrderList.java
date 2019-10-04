@@ -57,13 +57,13 @@ public class OrderList extends AppCompatActivity {
         tabhost=(TabHost) findViewById(R.id.tb1);
         tabhost.setup();
         LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
+        /*LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
         LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
-        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
-        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
+        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());*/
         tabhost.addTab(tabhost.newTabSpec("tab1").setIndicator("待付款",null).setContent(R.id.order_tab));
-        tabhost.addTab(tabhost.newTabSpec("tab2").setIndicator("代发货",null).setContent(R.id.order_tab));
+        /*tabhost.addTab(tabhost.newTabSpec("tab2").setIndicator("代发货",null).setContent(R.id.order_tab));
         tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("待收货",null).setContent(R.id.order_tab));
-        tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));
+        tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));*/
         payListV=findViewById(R.id.order_tab);
     }
     @Override
@@ -97,7 +97,7 @@ public class OrderList extends AppCompatActivity {
     }
 
     public void getList(String url,List<OrderVO> list,int tpyei){
-        context= OrderList.this.tabhost.getContext();
+        context= OrderList.this;
         HashMap paramMap = new HashMap<>();
         new Thread(
                 new Runnable() {
@@ -121,7 +121,7 @@ public class OrderList extends AppCompatActivity {
                                 Bitmap bitmap=null;
                                 img_url=list.get(a).getOrderImage();
                                 int b=img_url.indexOf(";");
-                                img_url="www.2306.tech/CCShop/"+img_url;
+                                img_url="http://www.2306.tech/CCShop/"+img_url;
                                 try {
                                     bitmap = getBitmap(img_url);
                                 } catch (IOException e) {
