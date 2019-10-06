@@ -252,6 +252,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#00FFFFFF"
+            android:onClick="logout"
             android:scaleType="centerInside"
             android:visibility="invisible"
             app:srcCompat="@drawable/logout" />

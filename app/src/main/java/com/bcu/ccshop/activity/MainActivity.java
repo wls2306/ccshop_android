@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TabHost;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView unM,lvM;
     public static boolean isLog=false;
     private ScrollView scrollView;
+    private ImageButton logButton,setButton,outButton;
 
 
 
@@ -80,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.type_m_s)).setContent(R.id.infoPage));
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.my_m_s)).setContent(R.id.minePage));
 
-
+        logButton=findViewById(R.id.imageButton9);
+        setButton=findViewById(R.id.imageButton10);
+        outButton=findViewById(R.id.imageButton11);
         goodsView=findViewById(R.id.goodsGridView);
         System.out.println(topGoodList.size());
         mData = new ArrayList<goodsInco>();
@@ -115,11 +119,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         Intent intentGL = data;
-        userID=intentGL.getStringExtra("username");
-        unM.setText(userID);
-        if (intentGL.getBooleanExtra("logSe",false)){
-            isLog=true;
+        try {
+            userID=intentGL.getStringExtra("username");
+            isLog=intentGL.getBooleanExtra("logSe",false);
+            if (isLog){
+                unM.setText(userID);
+                logButton.setImageResource(R.drawable.inof_set);
+                outButton.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
+
 
     }
 
@@ -244,8 +256,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goLogAct(View view){
-        Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-        startActivityForResult(intent, 38);
+        dolog();
+    }
+
+    public void dolog(){
+        if(isLog){
+            Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+        }else {
+            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+            startActivityForResult(intent, 38);
+        }
     }
 
     public  void showOrList(int type){
@@ -256,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("type",type);
             intent.putExtra("resultList","https://www.2306.tech/CCShop/order/select/m/"+userID);
             startActivity(intent);
+        }else {
+            dolog();
         }
     }
     public void getPayList(View view){
@@ -276,6 +298,16 @@ public class MainActivity extends AppCompatActivity {
         String resultList=url+"/"+uID;
 
         return resultList;
+    }
+
+    public void logout(View view){
+        if(isLog){
+            isLog=false;
+            outButton.setVisibility(View.INVISIBLE);
+            logButton.setImageResource(R.drawable.login);
+            unM.setText("未登录");
+        }
+
     }
 
 
