@@ -57,19 +57,20 @@ public class OrderList extends AppCompatActivity {
         tabhost=(TabHost) findViewById(R.id.tb1);
         tabhost.setup();
         LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
-        /*LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
         LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
-        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());*/
+        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
+        LayoutInflater.from(this).inflate(R.layout.order_tab, tabhost.getTabContentView());
         tabhost.addTab(tabhost.newTabSpec("tab1").setIndicator("待付款",null).setContent(R.id.order_tab));
-        /*tabhost.addTab(tabhost.newTabSpec("tab2").setIndicator("代发货",null).setContent(R.id.order_tab));
+        tabhost.addTab(tabhost.newTabSpec("tab2").setIndicator("代发货",null).setContent(R.id.order_tab));
         tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("待收货",null).setContent(R.id.order_tab));
-        tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));*/
+        tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));
         payListV=findViewById(R.id.order_tab);
     }
     @Override
     public void onStart() {
         Intent intent =getIntent();
-        getList(intent.getStringExtra("resultList")+"/0",payList,0);
+        String urlRe=intent.getStringExtra("resultList");
+
 
         super.onStart();
 
@@ -77,27 +78,46 @@ public class OrderList extends AppCompatActivity {
         switch (type){
             case 0:{
                 tabhost.setCurrentTab(0);
+                getList(urlRe+"/0",payList,0);
                 break;
             }
             case 1:{
                 tabhost.setCurrentTab(1);
+                getList(urlRe+"/4",payList,0);
                 break;
             }
             case  2:{
                 tabhost.setCurrentTab(2);
+                getList(urlRe+"/6",payList,0);
                 break;
             }
             case  3:{
                 tabhost.setCurrentTab(3);
+                getList(urlRe+"/7",payList,0);
                 break;
             }
         }
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                switch (tabId){
+                    case "tab1":{ getList(urlRe+"/0",payList,0); System.out.println(tabId); break;}
+                    case "tab2":{ getList(urlRe+"/4",payList,4); System.out.println(tabId); break;}
+                    case "tab3": {getList(urlRe+"/6",payList,6); System.out.println(tabId); break;}
+                    case "tab4":{ getList(urlRe+"/7",payList,7); System.out.println(tabId); break;}
+                }
+                mAdapterOr.notifyDataSetChanged();
+            }
+        });
 
 
     }
 
     public void getList(String url,List<OrderVO> list,int tpyei){
         context= OrderList.this;
+        mData.clear();
+        payList.clear();
+
         HashMap paramMap = new HashMap<>();
         new Thread(
                 new Runnable() {
@@ -145,6 +165,7 @@ public class OrderList extends AppCompatActivity {
             System.out.println("context:"+context);
             mAdapterOr = new icOAdapter(mData,context,R.layout.order_item,msg.what);
             payListV.setAdapter(mAdapterOr);
+
         }
     };
 
