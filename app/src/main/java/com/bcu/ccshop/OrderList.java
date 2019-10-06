@@ -75,6 +75,7 @@ public class OrderList extends AppCompatActivity {
         switch (type){
             case 0:{
                 System.out.println("12345789 0");
+                tabhost.setCurrentTab(1);
                 tabhost.setCurrentTab(0);
                 getList(urlRe+"/0",payList,0);
                 System.out.println(type);
