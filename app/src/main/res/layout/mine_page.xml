@@ -148,8 +148,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
+            android:onClick="getSendList"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/sending"/>
+            app:srcCompat="@drawable/sending" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -157,8 +158,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#00FFFFFF"
+            android:onClick="getCheckList"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/checking"/>
+            app:srcCompat="@drawable/checking" />
 
         <ImageButton
             android:id="@+id/imageButton4"
@@ -166,8 +168,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
+            android:onClick="getComList"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/evaluation"/>
+            app:srcCompat="@drawable/evaluation" />
     </LinearLayout>
 
     <LinearLayout

@@ -63,37 +63,36 @@ public class OrderList extends AppCompatActivity {
         tabhost.addTab(tabhost.newTabSpec("tab1").setIndicator("待付款",null).setContent(R.id.order_tab));
         tabhost.addTab(tabhost.newTabSpec("tab2").setIndicator("代发货",null).setContent(R.id.order_tab));
         tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("待收货",null).setContent(R.id.order_tab));
-        tabhost.addTab(tabhost.newTabSpec("tab3").setIndicator("评价/客服",null).setContent(R.id.order_tab));
+        tabhost.addTab(tabhost.newTabSpec("tab4").setIndicator("评价/客服",null).setContent(R.id.order_tab));
         payListV=findViewById(R.id.order_tab);
     }
     @Override
     public void onStart() {
         Intent intent =getIntent();
         String urlRe=intent.getStringExtra("resultList");
-
-
         super.onStart();
-
-        type=intent.getIntExtra("type",0);
+        type=intent.getIntExtra("type",-1);
         switch (type){
             case 0:{
+                System.out.println("12345789 0");
                 tabhost.setCurrentTab(0);
                 getList(urlRe+"/0",payList,0);
+                System.out.println(type);
                 break;
             }
             case 1:{
                 tabhost.setCurrentTab(1);
-                getList(urlRe+"/4",payList,0);
+                getList(urlRe+"/4",payList,1);
                 break;
             }
             case  2:{
                 tabhost.setCurrentTab(2);
-                getList(urlRe+"/6",payList,0);
+                getList(urlRe+"/6",payList,2);
                 break;
             }
             case  3:{
                 tabhost.setCurrentTab(3);
-                getList(urlRe+"/7",payList,0);
+                getList(urlRe+"/7",payList,3);
                 break;
             }
         }
@@ -101,12 +100,11 @@ public class OrderList extends AppCompatActivity {
             @Override
             public void onTabChanged(String tabId) {
                 switch (tabId){
-                    case "tab1":{ getList(urlRe+"/0",payList,0); System.out.println(tabId); break;}
-                    case "tab2":{ getList(urlRe+"/4",payList,4); System.out.println(tabId); break;}
-                    case "tab3": {getList(urlRe+"/6",payList,6); System.out.println(tabId); break;}
-                    case "tab4":{ getList(urlRe+"/7",payList,7); System.out.println(tabId); break;}
+                    case "tab1":{ getList(urlRe+"/0",payList,0); System.out.println("tabId"+tabId); break;}
+                    case "tab2":{ getList(urlRe+"/4",payList,1); System.out.println("tabId"+tabId); break;}
+                    case "tab3": {getList(urlRe+"/6",payList,2); System.out.println("tabId"+tabId); break;}
+                    case "tab4":{ getList(urlRe+"/7",payList,3); System.out.println("tabId"+tabId); break;}
                 }
-                mAdapterOr.notifyDataSetChanged();
             }
         });
 
@@ -164,7 +162,9 @@ public class OrderList extends AppCompatActivity {
         public void handleMessage(Message msg) {
             System.out.println("context:"+context);
             mAdapterOr = new icOAdapter(mData,context,R.layout.order_item,msg.what);
+            mAdapterOr.notifyDataSetChanged();
             payListV.setAdapter(mAdapterOr);
+            mAdapterOr.notifyDataSetChanged();
 
         }
     };

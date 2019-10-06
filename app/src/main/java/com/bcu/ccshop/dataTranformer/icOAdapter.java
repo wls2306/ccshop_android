@@ -39,12 +39,12 @@ public class icOAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return i;
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -71,8 +71,43 @@ public class icOAdapter extends BaseAdapter {
         holderOA.id.setText("订单编号："+beanList.get(i).getoID()+"  创建日期："+beanList.get(i).getoFDate());
         holderOA.name.setText(""+beanList.get(i).getoNmae());
         holderOA.color.setText("");
-        holderOA.prace.setText(""+beanList.get(i).getoGFee()+"/n×"+beanList.get(i).getoCount());
+        holderOA.prace.setText(""+beanList.get(i).getoGFee()+"\n×"+beanList.get(i).getoCount());
         holderOA.tatol.setText("合计："+beanList.get(i).getoFee());
+
+        switch (type){
+            case 0: {
+                holderOA.imageButton1.setVisibility(View.VISIBLE);
+                holderOA.imageButton2.setVisibility(View.INVISIBLE);
+                holderOA.imageButton3.setVisibility(View.VISIBLE);
+                holderOA.imageButton3.setImageResource(R.drawable.contact);
+                holderOA.imageButton1.setImageResource(R.drawable.go_pay);
+                break;
+            }
+            case 1: {
+                holderOA.imageButton1.setVisibility(View.INVISIBLE);
+                holderOA.imageButton2.setVisibility(View.VISIBLE);
+                holderOA.imageButton3.setVisibility(View.INVISIBLE);
+                holderOA.imageButton2.setImageResource(R.drawable.delivery);
+                break;
+            }
+            case 2: {
+                holderOA.imageButton1.setVisibility(View.INVISIBLE);
+                holderOA.imageButton2.setVisibility(View.VISIBLE);
+                holderOA.imageButton3.setVisibility(View.VISIBLE);
+                holderOA.imageButton2.setImageResource(R.drawable.logistics);
+                holderOA.imageButton3.setImageResource(R.drawable.checked);
+                break;
+            }
+            case 3: {
+                holderOA.imageButton1.setVisibility(View.INVISIBLE);
+                holderOA.imageButton2.setVisibility(View.VISIBLE);
+                holderOA.imageButton3.setVisibility(View.VISIBLE);
+                holderOA.imageButton2.setImageResource(R.drawable.contact);
+                holderOA.imageButton3.setImageResource(R.drawable.evaluation_b);
+                break;
+            }
+        }
+
         return view;
     }
     private static class ViewHolderOA{
