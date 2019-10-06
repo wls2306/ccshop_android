@@ -294,6 +294,10 @@ public class MainActivity extends AppCompatActivity {
         showOrList(3);
     }
 
+    public void getHomeOList(View view){
+        Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+    }
+
     private String getUserOderList(String url,String uID){
         String resultList=url+"/"+uID;
 
