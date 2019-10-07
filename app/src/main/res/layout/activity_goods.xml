@@ -233,13 +233,22 @@
                             android:textColor="#FFFFFF"
                             android:textSize="12dp" />
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="￥"
+                            android:textColor="#FF9800"
+                            android:textSize="18sp" />
+                        <TextView
                             android:id="@+id/total_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="￥100.98"
+                            android:text="@{goods.goodsPrice}"
                             android:textColor="#FF9800"
                             android:textSize="18sp" />
+
+
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"

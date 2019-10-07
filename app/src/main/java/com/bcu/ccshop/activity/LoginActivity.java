@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast toast;
             if (rs.equals("true")) {
+                MainActivity.isLog=true;
+                MainActivity.userOpenId=usernameS;
                 Intent intent=new Intent();
                 intent.setClass(LoginActivity.this,MainActivity.class);
                 intent.putExtra("username",usernameS);

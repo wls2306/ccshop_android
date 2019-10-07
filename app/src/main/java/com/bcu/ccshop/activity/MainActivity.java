@@ -89,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(topGoodList.size());
         mData = new ArrayList<goodsInco>();
         convenientBanner=(ConvenientBanner) findViewById(R.id.convenientBanner);
-        bannerImgs.add(R.drawable.test_photo1);
-        bannerImgs.add(R.drawable.test_photo2);
+        bannerImgs.add(R.drawable.main);
+        bannerImgs.add(R.drawable.main);
+        bannerImgs.add(R.drawable.main);
+       /* bannerImgs.add(R.drawable.test_photo1);
+        bannerImgs.add(R.drawable.test_photo2);*/
         unM=findViewById(R.id.userLevelMian);
 
         tabHost.setFocusable(true);
@@ -141,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            Toast.makeText(MainActivity.this,"ID:"+mData.get(i).getiId(),Toast.LENGTH_SHORT).show();
+           // Toast.makeText(MainActivity.this,"ID:"+mData.get(i).getiId(),Toast.LENGTH_SHORT).show();
             Intent intentItem=new Intent(MainActivity.this,GoodsActivity.class);
             intentItem.putExtra("ClickItemID",mData.get(i).getiId());
             startActivity(intentItem);

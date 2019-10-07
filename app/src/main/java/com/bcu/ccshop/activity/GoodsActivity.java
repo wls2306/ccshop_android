@@ -3,10 +3,9 @@ package com.bcu.ccshop.activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,32 +14,25 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bcu.ccshop.OrderList;
 import com.bcu.ccshop.R;
-import com.bcu.ccshop.databinding.ActivityGoodsBinding;
 import com.bcu.ccshop.databinding.ActivityGoodsBindingImpl;
 import com.bcu.ccshop.model.Goods;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
-import com.bumptech.glide.Glide;
 import com.google.common.base.Strings;
-import com.google.gson.Gson;
 
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONString;
 import cn.hutool.json.JSONUtil;
 
 public class GoodsActivity extends AppCompatActivity {
@@ -52,6 +44,8 @@ public class GoodsActivity extends AppCompatActivity {
     private String[] images;
     private List<String> imgList=new ArrayList<>();
     private Float price;
+    private static int LOAD =1;
+    private static int SUBMIT =2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +73,9 @@ public class GoodsActivity extends AppCompatActivity {
                     goods.setGoodsPrice(jsonObject.getStr("goodsPrice"));
                     goods.setGoodsDescription(jsonObject.getStr("goodsDescription"));
                     goods.setGoodsSoldAmount(jsonObject.getStr("goodsSoldAmount")+" 人已买");
-                    price=jsonObject.getFloat("goodsPrice");
+                    price=Float.valueOf(jsonObject.getStr("goodsPrice"));
                     binding.setGoods(goods);
-                    binding.totalPrice.setText(jsonObject.getStr("goodsPrice"));
+
                     images = jsonObject.getStr("goodsImg").split(";");
                     for (String s : images) {
                         s=MainActivity.SERVER_URL+"/"+s;
@@ -89,6 +83,7 @@ public class GoodsActivity extends AppCompatActivity {
                     }
                     System.out.println("********* Img List :"+JSONUtil.toJsonStr(imgList));
                     Message m = new Message();
+                    m.what= LOAD;
                     handler.handleMessage(m);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -111,8 +106,7 @@ public class GoodsActivity extends AppCompatActivity {
                 if(StrUtil.isNotBlank(charSequence.toString())) {
                     if (Integer.valueOf(charSequence.toString()) >0&& Integer.valueOf(charSequence.toString())<=20) {
                         DecimalFormat decimalFormat=new DecimalFormat(".00");
-
-                        binding.totalPrice.setText("￥"+decimalFormat.format(Float.valueOf(charSequence.toString())*price) );
+                        binding.totalPrice.setText(decimalFormat.format(Float.valueOf(charSequence.toString())*price));
                     }
                     else {
                         binding.count.setText("1");
@@ -130,6 +124,37 @@ public class GoodsActivity extends AppCompatActivity {
         /**
          * 确认&提交订单
          */
+        binding.button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (MainActivity.isLog) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(GoodsActivity.this);
+                    builder.setTitle("订单确认");
+                    builder.setMessage("请确认您的订单信息：\n商品名："+binding.textView9.getText().toString()+"\n数量："+binding.count.getText().toString()+"\n总价："+binding.totalPrice.getText().toString());
+                    builder.setNegativeButton("再想想", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    builder.setPositiveButton("提交订单", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //TODO : 提交订单流程
+                            submitOrder();
+                        }
+                    });
+
+                    builder.show();
+
+                }else {
+                    Toast.makeText(getApplicationContext(),"请先登录",Toast.LENGTH_LONG).show();
+                    Intent intent1=new Intent(GoodsActivity.this,LoginActivity.class);
+                    startActivity(intent1);
+                }
+            }
+        });
 
 
 
@@ -149,8 +174,33 @@ public class GoodsActivity extends AppCompatActivity {
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-         //   System.out.println(JSONUtil.toJsonStr(imgList));
-            doRefresh();
+            switch (msg.what)
+            {
+                case 1:
+                    doRefresh();
+                    break;
+
+                case 2:
+                    Bundle b=msg.getData();
+                    String json=b.getString("result");
+                    if (JSONUtil.isJson(json)) {
+                        JSONObject jsonObject=JSONUtil.parseObj(json);
+                        if (jsonObject.get("result").equals("success")){
+                            Looper.prepare();
+                            Toast.makeText(getApplicationContext(),"订单提交成功",Toast.LENGTH_LONG).show();
+                            Intent intent=new Intent(GoodsActivity.this, OrderList.class);
+                            startActivity(intent);
+                            Looper.loop();
+                        }else {
+                            Looper.prepare();
+                            Toast.makeText(getApplicationContext(),"订单提交失败",Toast.LENGTH_LONG).show();
+                            Looper.loop();
+                        }
+                    }
+
+                    break;
+
+            }
         };
 
     };
@@ -177,6 +227,47 @@ public class GoodsActivity extends AppCompatActivity {
 
 
 
+
+    public void submitOrder(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /**
+                 *   orderConsignee: name,
+                 *   orderTel: phone,
+                 *   orderGoodsId: goodsId,
+                 *   orderOpenId: wx.getStorageSync('openid'),
+                 *   orderOutletsId: sites.id,
+                 *   orderTotalFee: this.data.priceEndAll,
+                 *   orderBuyCount: this.data.goodsNum,
+                 *   orderScore: orderScore
+                 */
+                HashMap orderMap=new HashMap<>();
+                orderMap.put("orderConsignee",MainActivity.userOpenId);
+                orderMap.put("orderGoodsId",goods_id);
+                orderMap.put("orderOpenId",MainActivity.userOpenId);
+                orderMap.put("orderOutletsId","1001");
+                orderMap.put("orderTotalFee",binding.totalPrice.getText().toString());
+                orderMap.put("orderBuyCount",binding.count.getText().toString());
+                orderMap.put("orderScore","0");
+                String result=HttpRequest.get(MainActivity.SERVER_URL+"/order/create")
+                        .form(orderMap)
+                        .execute().body();
+
+                JSONObject jsonObject=new JSONObject(orderMap);
+                System.out.println(jsonObject.toString());
+
+                System.out.println(result);
+                Bundle bundle=new Bundle();
+                bundle.putString("result",result);
+                Message message=new Message();
+                message.what=SUBMIT;
+                message.setData(bundle);
+                handler.handleMessage(message);
+
+            }
+        }).start();
+    }
 
 }
 
