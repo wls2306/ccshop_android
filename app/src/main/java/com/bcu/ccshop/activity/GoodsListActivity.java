@@ -34,6 +34,8 @@ import java.util.List;
 
 import cn.hutool.http.HttpRequest;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class GoodsListActivity extends AppCompatActivity {
 
     private ActivityGoodsListBinding binding;
@@ -52,6 +54,7 @@ public class GoodsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_goods_list);
 
         listView=findViewById(R.id.listView);

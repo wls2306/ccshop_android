@@ -39,6 +39,8 @@ import java.util.List;
 import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpRequest;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class OrderList extends AppCompatActivity {
     private String result;
     private List<OrderVO> payList=new ArrayList<>();
@@ -59,6 +61,7 @@ public class OrderList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_order_list);
         tabhost=(TabHost) findViewById(R.id.tb1);
         tabhost.setup();

@@ -39,6 +39,7 @@ import cn.hutool.json.JSONUtil;
 
 import static com.bcu.ccshop.activity.MainActivity.isLog;
 import static com.bcu.ccshop.activity.MainActivity.loglook;
+import static com.bcu.ccshop.activity.MainActivity.themeId;
 import static com.bcu.ccshop.activity.MainActivity.userID;
 
 public class GoodsActivity extends AppCompatActivity {
@@ -58,6 +59,7 @@ public class GoodsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_goods);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_goods);
         convenientBanner = findViewById(R.id.convenientBanner);

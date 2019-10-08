@@ -9,4 +9,7 @@
     <color name="colorPrimaryP">#EC407A</color>
     <color name="colorPrimaryDarkP">#D81B60</color>
     <color name="colorAccentP">#7E57C2</color>
+    <color name="colorbutton">#66BB6A</color>
+    <color name="colorbuttonB">#26C6DA</color>
+    <color name="colorbuttonP">#A00438</color>
 </resources>

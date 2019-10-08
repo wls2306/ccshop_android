@@ -27,6 +27,8 @@ import java.util.HashMap;
 
 import cn.hutool.http.HttpRequest;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextView registerButton;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_login);
 
      //   ArrayList goods=new ArrayList(Goods);

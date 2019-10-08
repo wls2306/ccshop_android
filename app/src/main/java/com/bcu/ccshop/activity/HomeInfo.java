@@ -35,6 +35,8 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class HomeInfo extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private static String HOMESURL = "https://www.2306.tech/CCShop/homestay/select/";
@@ -54,6 +56,7 @@ public class HomeInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_home_info);
         convenientBanner=findViewById(R.id.convenientBanner);
         hName= findViewById(R.id.textView25);

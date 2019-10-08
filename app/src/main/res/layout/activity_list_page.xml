@@ -9,9 +9,9 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-
         android:layout_height="192dp"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -37,9 +37,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:titleTextAppearance="@style/Toolbar.TitleText"
                 app:subtitleTextAppearance="@style/Toolbar.TitleText"
-                app:subtitleTextColor="#FFFFFF"
-                app:title="农产品"
-                app:titleTextColor="#FFFFFF"></androidx.appcompat.widget.Toolbar>
+                app:title="农产品">
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -55,6 +54,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             tools:context=".activity.list_Page">
 
             <com.bcu.ccshop.customWidget.SuperGridView
@@ -82,7 +83,7 @@
         android:layout_margin="16dp"
         android:onClick="goCart"
         android:src="@drawable/totop"
-        app:backgroundTint="#009688" />
+        />
 
     "
 

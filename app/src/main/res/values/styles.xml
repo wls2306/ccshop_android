@@ -13,18 +13,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorbutton</item>
     </style>
     <style name="AppThemeB" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryB</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkB</item>
         <item name="colorAccent">@color/colorAccentB</item>
+        <item name="colorButtonNormal">@color/colorbuttonB</item>
     </style>
     <style name="AppThemeP" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryP</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkP</item>
         <item name="colorAccent">@color/colorAccentP</item>
+        <item name="colorButtonNormal">@color/colorbuttonP</item>
     </style>
 
     <!-- 设置Toolbar 子标题subtitle标题字体的大小 -->

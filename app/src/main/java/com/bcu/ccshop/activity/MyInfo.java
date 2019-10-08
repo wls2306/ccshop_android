@@ -11,11 +11,14 @@ import android.widget.Toast;
 
 import com.bcu.ccshop.R;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class MyInfo extends AppCompatActivity {
     private Activity instance ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_my_info);
         instance=this;
         Button finsh=findViewById(R.id.button3);

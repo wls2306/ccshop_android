@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bcu.ccshop.OrderList;
 import com.bcu.ccshop.R;
+import com.bcu.ccshop.SettingActivity;
 import com.bcu.ccshop.customWidget.SuperGridView;
 import com.bcu.ccshop.dataTranformer.goods;
 import com.bcu.ccshop.dataTranformer.icAdapter;
@@ -65,6 +66,33 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private ImageButton logButton,setButton,outButton;
     public static Object loglook=new Object();
+    public static Object thmemlook=new Object();
+    public static int themeId=R.style.AppTheme;
+
+    private Thread changThmem=new Thread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    synchronized (thmemlook){
+                        while (!b){
+                            try {
+                                thmemlook.wait();
+                                Message message=new Message();
+                                message.what=46781;
+                                themehandler.sendMessage(message);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                }
+            }
+    );
+
+
+
+
     private Thread logThreader=new Thread(
             new Runnable() {
                 @Override
@@ -90,17 +118,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(themeId);
         setContentView(R.layout.activity_main);
-
-
         //卡项 Tabhost
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
         tabHost.setup();
         LayoutInflater.from(this).inflate(R.layout.home_page, tabHost.getTabContentView());
-        LayoutInflater.from(this).inflate(R.layout.info_page, tabHost.getTabContentView());
+       // LayoutInflater.from(this).inflate(R.layout.info_page, tabHost.getTabContentView());
         LayoutInflater.from(this).inflate(R.layout.mine_page, tabHost.getTabContentView());
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("", getDrawable(R.drawable.home_m_s)).setContent(R.id.homepage));
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.type_m_s)).setContent(R.id.infoPage));
+       // tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.type_m_s)).setContent(R.id.infoPage));
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.my_m_s)).setContent(R.id.minePage));
 
         logButton=findViewById(R.id.imageButton9);
@@ -132,15 +159,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        b=false;
         logThreader.start();
+        changThmem.start();
         swipeRefreshLayout.setRefreshing(true);
-
 
     }
     @Override
     protected void onStart() {
         super.onStart();
         scrollView.fullScroll(ScrollView.FOCUS_UP);
+        if(isLog){
+            unM.setText(userID);
+            logButton.setImageResource(R.drawable.inof_set);
+            outButton.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
@@ -204,9 +238,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what==53153){
+
                 unM.setText(userID);
                 logButton.setImageResource(R.drawable.inof_set);
                 outButton.setVisibility(View.VISIBLE);
+
+            }
+        }
+    };
+    private Handler themehandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what==46781){
+                b=true;
+                recreate();
             }
         }
     };
@@ -371,6 +416,10 @@ public class MainActivity extends AppCompatActivity {
             unM.setText("未登录");
         }
 
+    }
+    public void goSet(View view){
+        Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+        startActivity(intent);
     }
 
 

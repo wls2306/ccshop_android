@@ -40,6 +40,7 @@ import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpRequest;
 
 import static com.bcu.ccshop.activity.MainActivity.SERVER_URL;
+import static com.bcu.ccshop.activity.MainActivity.themeId;
 
 public class list_Page extends AppCompatActivity {
     private SuperGridView listView;
@@ -60,6 +61,7 @@ public class list_Page extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_list_page);
         listView=findViewById(R.id.ItemList);
         toolbar=findViewById(R.id.toolbar);

@@ -29,6 +29,8 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 
+import static com.bcu.ccshop.activity.MainActivity.themeId;
+
 public class RegisterActivity extends AppCompatActivity {
 
     Log log= LogFactory.get();
@@ -39,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setTheme(themeId);
         setContentView(R.layout.activity_register);
         final Button submitButton=(Button)findViewById(R.id.button2);
 
