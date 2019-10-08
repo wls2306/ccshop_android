@@ -133,17 +133,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         logThreader.start();
+        swipeRefreshLayout.setRefreshing(true);
 
 
     }
     @Override
     protected void onStart() {
         super.onStart();
-        swipeRefreshLayout.setRefreshing(true);
         scrollView.fullScroll(ScrollView.FOCUS_UP);
-
-
-
     }
 
     @Override
@@ -312,11 +309,21 @@ public class MainActivity extends AppCompatActivity {
 
     public  void showOrList(int type){
         if(isLog){
-            String string;
-            string=getUserOderList(SERVER_URL+"/order/select/m/",userID);
             Intent intent=new Intent(MainActivity.this, OrderList.class);
             intent.putExtra("type",type);
+            intent.putExtra("listTpye",0);
             intent.putExtra("resultList","https://www.2306.tech/CCShop/order/select/m/"+userID);
+            startActivity(intent);
+        }else {
+            dolog();
+        }
+    }
+    public  void showOrListH(int type){
+        if(isLog){
+            Intent intent=new Intent(MainActivity.this, OrderList.class);
+            intent.putExtra("type",type);
+            intent.putExtra("listTpye",1);
+            intent.putExtra("resultList","https://www.2306.tech/CCShop/horder/select/m/"+userID);
             startActivity(intent);
         }else {
             dolog();
@@ -327,17 +334,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void getSendList(View view){
-        showOrList(1);
+        showOrList(4);
     }
     public void getCheckList(View view){
-        showOrList(2);
+        showOrList(6);
     }
     public void getComList(View view) {
-        showOrList(3);
+        showOrList(7);
     }
 
-    public void getHomeOList(View view){
-        //Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+    public void getHomePayList(View view){
+        showOrListH(0);
+    }
+    public void getHomeWaitList(View view){
+        showOrListH(1);
+    }
+    public void getHomeFinishList(View view){
+        showOrListH(3);
+    }
+    public void getHomeComList(View view){
+        showOrListH(2);
     }
 
     private String getUserOderList(String url,String uID){

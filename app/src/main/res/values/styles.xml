@@ -14,6 +14,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="AppThemeB" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryB</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkB</item>
+        <item name="colorAccent">@color/colorAccentB</item>
+    </style>
+    <style name="AppThemeP" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryP</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkP</item>
+        <item name="colorAccent">@color/colorAccentP</item>
+    </style>
 
     <!-- 设置Toolbar 子标题subtitle标题字体的大小 -->
 
@@ -25,7 +37,7 @@
     <!-- 设置Toolbar标题字体的颜色大小 -->
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">20sp</item><!--toolbar标题字体大小-->
+        <item name="android:textSize">64sp</item><!--toolbar标题字体大小-->
         <item name="android:textColor">#ffffff</item><!--toolbar标题字体颜色-->
     </style>
     <style name="Con_style" parent="@android:style/Theme.DeviceDefault.Dialog">

@@ -197,7 +197,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
-            android:onClick="getHomeOList"
+            android:onClick="getHomePayList"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/paying" />
 
@@ -207,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
-            android:onClick="getHomeOList"
+            android:onClick="getHomeWaitList"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/checkin" />
 
@@ -217,7 +217,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
-            android:onClick="getHomeOList"
+            android:onClick="getHomeFinishList"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/checkout" />
 
@@ -227,7 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00FFFFFF"
-            android:onClick="getHomeOList"
+            android:onClick="getHomeComList"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/evaluation" />
     </LinearLayout>

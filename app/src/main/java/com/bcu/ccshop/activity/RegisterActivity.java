@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -31,6 +32,8 @@ import cn.hutool.log.LogFactory;
 public class RegisterActivity extends AppCompatActivity {
 
     Log log= LogFactory.get();
+    private Activity instance ;
+    private View viewQ;
 
 
     @Override
@@ -48,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewQ=view;
 
                 submitButton.setEnabled(false);
 
@@ -128,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
             super.handleMessage(msg);
             Bundle bundle=new Bundle();
             bundle=msg.getData();
-            Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+            //Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
             String result=bundle.getString("result");
 
             log.info(result);
@@ -148,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //TODO: 注册成功后的处理
                     Looper.prepare();
                     Toast.makeText(getApplicationContext(),"注册成功",Toast.LENGTH_LONG);
-                    startActivity(intent);
+                    backb(viewQ);
                     Looper.loop();
 
 
@@ -169,4 +173,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
     };
+    public void backb(View view){
+        instance = this;
+        instance.finish();
+    }
 }
