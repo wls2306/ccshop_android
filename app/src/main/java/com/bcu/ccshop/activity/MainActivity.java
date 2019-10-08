@@ -58,11 +58,32 @@ public class MainActivity extends AppCompatActivity {
     private ConvenientBanner convenientBanner;
     private List<Integer> bannerImgs=new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
-    private String userID;
+    public static String userID;
     private TextView unM,lvM;
     public static boolean isLog=false;
+    private boolean b=false;
     private ScrollView scrollView;
     private ImageButton logButton,setButton,outButton;
+    public static Object loglook=new Object();
+    private Thread logThreader=new Thread(
+            new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                            synchronized (loglook){
+                                while (!b){
+                                    loglook.wait();
+                                    Message message=new Message();
+                                    message.what=53153;
+                                    loghandler.sendMessage(message);
+                                }
+                            }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+    );
 
 
 
@@ -111,12 +132,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        logThreader.start();
+
 
     }
     @Override
     protected void onStart() {
         super.onStart();
+        swipeRefreshLayout.setRefreshing(true);
         scrollView.fullScroll(ScrollView.FOCUS_UP);
+
+
+
     }
 
     @Override
@@ -126,12 +153,12 @@ public class MainActivity extends AppCompatActivity {
             userID=intentGL.getStringExtra("username");
             isLog=intentGL.getBooleanExtra("logSe",false);
             if (isLog){
-                unM.setText(userID);
-                logButton.setImageResource(R.drawable.inof_set);
-                outButton.setVisibility(View.VISIBLE);
+                synchronized (loglook){
+                    loglook.notify();
+                }
             }
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "AR登录失败", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -175,6 +202,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    private Handler loghandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if(msg.what==53153){
+                unM.setText(userID);
+                logButton.setImageResource(R.drawable.inof_set);
+                outButton.setVisibility(View.VISIBLE);
+            }
+        }
+    };
+
     public static Bitmap getBitmap(String path) throws IOException {
         URL url = new URL(path);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -264,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void dolog(){
         if(isLog){
-            Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
         }else {
             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
             startActivityForResult(intent, 38);
@@ -298,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getHomeOList(View view){
-        Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
     }
 
     private String getUserOderList(String url,String uID){
@@ -316,6 +355,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 
 

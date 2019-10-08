@@ -14,6 +14,8 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcu.ccshop.OrderList;
@@ -35,6 +37,10 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
+import static com.bcu.ccshop.activity.MainActivity.isLog;
+import static com.bcu.ccshop.activity.MainActivity.loglook;
+import static com.bcu.ccshop.activity.MainActivity.userID;
+
 public class GoodsActivity extends AppCompatActivity {
     private static String GOODSURL = "/goods/select/";
     private String goods_id = "";
@@ -46,6 +52,8 @@ public class GoodsActivity extends AppCompatActivity {
     private Float price;
     private static int LOAD =1;
     private static int SUBMIT =2;
+    private TextView unM;
+    private ImageButton logButton,setButton,outButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,10 @@ public class GoodsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_goods);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_goods);
         convenientBanner = findViewById(R.id.convenientBanner);
-
+        unM=findViewById(R.id.userLevelMian);
+        logButton=findViewById(R.id.imageButton9);
+        setButton=findViewById(R.id.imageButton10);
+        outButton=findViewById(R.id.imageButton11);
         binding.setLifecycleOwner(this);
 
         Intent intent = getIntent();
@@ -127,7 +138,7 @@ public class GoodsActivity extends AppCompatActivity {
         binding.button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.isLog) {
+                if (isLog) {
                     AlertDialog.Builder builder=new AlertDialog.Builder(GoodsActivity.this);
                     builder.setTitle("订单确认");
                     builder.setMessage("请确认您的订单信息：\n商品名："+binding.textView9.getText().toString()+"\n数量："+binding.count.getText().toString()+"\n总价："+binding.totalPrice.getText().toString());
@@ -150,21 +161,31 @@ public class GoodsActivity extends AppCompatActivity {
 
                 }else {
                     Toast.makeText(getApplicationContext(),"请先登录",Toast.LENGTH_LONG).show();
-                    Intent intent1=new Intent(GoodsActivity.this,LoginActivity.class);
-                    startActivity(intent1);
+
+                   // MainActivity.dolog();
+                   /* Intent intent1=new Intent(GoodsActivity.this,LoginActivity.class);
+                    startActivity(intent1);*/
+                    Intent intent = new Intent(GoodsActivity.this, LoginActivity.class);
+                    startActivityForResult(intent, 38);
                 }
             }
         });
-
-
-
-
-
-
-
-
-
-
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        Intent intentGL = data;
+        try {
+            userID=intentGL.getStringExtra("username");
+            isLog=intentGL.getBooleanExtra("logSe",false);
+            if (isLog){
+                synchronized (loglook){
+                    loglook.notify();
+                }
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "登录失败", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
 
 
     }
@@ -189,6 +210,8 @@ public class GoodsActivity extends AppCompatActivity {
                             Looper.prepare();
                             Toast.makeText(getApplicationContext(),"订单提交成功",Toast.LENGTH_LONG).show();
                             Intent intent=new Intent(GoodsActivity.this, OrderList.class);
+                            intent.putExtra("type",0);
+                            intent.putExtra("resultList","https://www.2306.tech/CCShop/order/select/m/"+userID);
                             startActivity(intent);
                             Looper.loop();
                         }else {
