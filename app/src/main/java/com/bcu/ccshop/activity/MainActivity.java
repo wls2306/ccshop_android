@@ -300,7 +300,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void dolog(){
         if(isLog){
-            //Toast.makeText(getApplicationContext(), "敬请期待，不知道端口", Toast.LENGTH_LONG).show();
+           Intent intent=new Intent(MainActivity.this,MyInfo.class);
+           startActivity(intent);
         }else {
             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
             startActivityForResult(intent, 38);
