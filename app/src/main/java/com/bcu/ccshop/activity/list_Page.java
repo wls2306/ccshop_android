@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import com.bcu.ccshop.R;
+import com.bcu.ccshop.customWidget.LoadingDialog;
 import com.bcu.ccshop.customWidget.SuperGridView;
 import com.bcu.ccshop.dataTranformer.Homestay;
 import com.bcu.ccshop.dataTranformer.goods;
@@ -56,6 +57,7 @@ public class list_Page extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView imageView;
     private NestedScrollView nestedScrollView;
+    private LoadingDialog loadingDialog;
     private int t;
 
     @Override
@@ -68,6 +70,7 @@ public class list_Page extends AppCompatActivity {
         imageView=findViewById(R.id.app_bar_image);
         nestedScrollView=findViewById(R.id.listScrollView);
         listView.setOnItemClickListener(new OnClickItem());
+        loadingDialog=new LoadingDialog();
 
     }
     private class OnClickItem implements AdapterView.OnItemClickListener{
@@ -92,6 +95,7 @@ public class list_Page extends AppCompatActivity {
         Intent intent=getIntent();
         String title=intent.getStringExtra("title");
         toolbar.setTitle(title);
+        loadingDialog.showDialogForLoading(list_Page.this);
         switch (title){
             case "农产品":
                 t=1;
@@ -182,7 +186,6 @@ public class list_Page extends AppCompatActivity {
     }
 
     public void goCart(View view){
-        Toast.makeText(list_Page.this,"Cart",Toast.LENGTH_SHORT).show();
         nestedScrollView.fullScroll(toolbar.getTop());
     }
 
@@ -192,6 +195,7 @@ public class list_Page extends AppCompatActivity {
             if(msg.what==COMPLETEDm){
                 itemAdapter=new icAdapter(mData,context,R.layout.itemliset_layout);
                 listView.setAdapter(itemAdapter);
+                loadingDialog.cancelDialogForLoading();
             }
         }
     };

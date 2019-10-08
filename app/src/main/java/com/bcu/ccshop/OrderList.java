@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bcu.ccshop.activity.MainActivity;
+import com.bcu.ccshop.activity.list_Page;
+import com.bcu.ccshop.customWidget.LoadingDialog;
 import com.bcu.ccshop.dataTranformer.Order;
 import com.bcu.ccshop.dataTranformer.OrderVO;
 import com.bcu.ccshop.dataTranformer.goods;
@@ -57,7 +59,7 @@ public class OrderList extends AppCompatActivity {
     private View nullView;
     private TextView textview1,textview2,textview3,textview4;
     private Toolbar toolbar;
-
+    private LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,6 +158,7 @@ public class OrderList extends AppCompatActivity {
     }
 
     public void getList(String url,List<OrderVO> list,int tpyei){
+        loadingDialog.showDialogForLoading(OrderList.this);
         context= OrderList.this;
         mData.clear();
         payList.clear();
@@ -219,6 +222,7 @@ public class OrderList extends AppCompatActivity {
             mAdapterOr.notifyDataSetChanged();
             payListV.setAdapter(mAdapterOr);
             mAdapterOr.notifyDataSetChanged();
+            loadingDialog.cancelDialogForLoading();
         }
     };
 

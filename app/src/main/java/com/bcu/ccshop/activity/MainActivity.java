@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.bcu.ccshop.OrderList;
 import com.bcu.ccshop.R;
 import com.bcu.ccshop.SettingActivity;
+import com.bcu.ccshop.customWidget.LoadingDialog;
 import com.bcu.ccshop.customWidget.SuperGridView;
 import com.bcu.ccshop.dataTranformer.goods;
 import com.bcu.ccshop.dataTranformer.icAdapter;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public static Object loglook=new Object();
     public static Object thmemlook=new Object();
     public static int themeId=R.style.AppTheme;
+    private LoadingDialog loadingDialog;
 
     private Thread changThmem=new Thread(
             new Runnable() {
@@ -154,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(MainActivity.this,"刷新",Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+                loadingDialog.showDialogForLoading(MainActivity.this);
                 refresh();
 
             }
@@ -162,13 +165,16 @@ public class MainActivity extends AppCompatActivity {
         b=false;
         logThreader.start();
         changThmem.start();
-        swipeRefreshLayout.setRefreshing(true);
+        loadingDialog=new LoadingDialog();
+        //swipeRefreshLayout.setRefreshing(true);
+        loadingDialog.showDialogForLoading(MainActivity.this);
 
     }
     @Override
     protected void onStart() {
         super.onStart();
         scrollView.fullScroll(ScrollView.FOCUS_UP);
+
         if(isLog){
             unM.setText(userID);
             logButton.setImageResource(R.drawable.inof_set);
@@ -229,7 +235,8 @@ public class MainActivity extends AppCompatActivity {
             if(msg.what==COMPLETEDm){
                 mAdapter = new icAdapter(mData,context,R.layout.ic_layout);
                 goodsView.setAdapter(mAdapter);
-                swipeRefreshLayout.setRefreshing(false);
+                //swipeRefreshLayout.setRefreshing(false);
+                loadingDialog.cancelDialogForLoading();
             }
         }
     };

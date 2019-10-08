@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.bcu.ccshop.activity.MainActivity.themeId;
 import static com.bcu.ccshop.activity.MainActivity.thmemlook;
@@ -62,5 +63,13 @@ public class SettingActivity extends AppCompatActivity {
             thmemlook.notify();
         }
         recreate();
+    }
+
+    public void submet(View view){
+        if(textView.getText().toString().length()==0){
+            Toast.makeText(getApplicationContext(),"请输入内容",Toast.LENGTH_LONG).show();
+        }else {
+            Toast.makeText(getApplicationContext(),"提交成功！",Toast.LENGTH_LONG).show();
+        }
     }
 }
