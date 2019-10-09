@@ -214,6 +214,7 @@ public class GoodsActivity extends AppCompatActivity {
                             Intent intent=new Intent(GoodsActivity.this, OrderList.class);
                             intent.putExtra("type",0);
                             intent.putExtra("resultList","https://www.2306.tech/CCShop/order/select/m/"+userID);
+                            intent.putExtra("listTpye",0);
                             startActivity(intent);
                             Looper.loop();
                         }else {

@@ -71,8 +71,8 @@ public class icOAdapter extends BaseAdapter {
         holderOA.id.setText("订单编号："+beanList.get(i).getoID()+"  创建日期："+beanList.get(i).getoFDate());
         holderOA.name.setText(""+beanList.get(i).getoNmae());
         holderOA.color.setText("");
-        holderOA.prace.setText(""+beanList.get(i).getoGFee()+"\n×"+beanList.get(i).getoCount());
-        holderOA.tatol.setText("合计："+beanList.get(i).getoFee());
+        holderOA.prace.setText(""+beanList.get(i).getoFee()+"\n×"+beanList.get(i).getoCount());
+        holderOA.tatol.setText("合计："+beanList.get(i).getoGFee());
 
         switch (type){
             case 0: {
